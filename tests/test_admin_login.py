@@ -2,7 +2,7 @@ from pages import LoginAdminPage
 import time
 
 
-def test_login_page_external(browser):
+def test_login_page_external(slow_down_tests, browser):
     browser.get(browser.base_url + "/administration")
     username = browser.find_element(*LoginAdminPage.USERNAME_INPUT)
     username.send_keys('user')

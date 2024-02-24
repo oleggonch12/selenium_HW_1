@@ -14,7 +14,7 @@ def gen_user():
     }
 
 
-def test_registration(browser):
+def test_registration(slow_down_tests, browser):
     user = gen_user()
     browser.get(browser.base_url + "/index.php?route=account/register")
     first_name = browser.find_element(By.XPATH, '//*[@id="input-firstname"]')

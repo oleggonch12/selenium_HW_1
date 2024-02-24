@@ -2,8 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 
 
-def test_pop_up_basket(browser):
-    time.sleep(1)
+def test_pop_up_basket(slow_down_tests, browser):
     basket_button = browser.find_element(By.CSS_SELECTOR, "#header-cart > div > button")
     basket_button.click()
     pop_up_menu = browser.find_element(By.CSS_SELECTOR, "#header-cart > div > ul")
@@ -11,15 +10,13 @@ def test_pop_up_basket(browser):
     assert pop_up_menu.text == "Your shopping cart is empty!", "Не отрабатывает кнопка корзины"
 
 
-def test_main_page_featured_items(browser):
-    time.sleep(1)  # Пауза для демонстрации
+def test_main_page_featured_items(slow_down_tests, browser):
     featured_items = browser.find_elements(By.CLASS_NAME, "col.mb-3")
 
     assert len(featured_items) == 4, "Неверное количество продуктов в блоке featured"
 
 
-def test_currency_set_up(browser):
-    time.sleep(1)  # Пауза для демонстрации
+def test_currency_set_up(slow_down_tests, browser):
     currency_button = browser.find_element(By.XPATH, '//*[@id="form-currency"]/div/a/span')
     currency_button.click()
     browser.find_element(By.XPATH, '//*[@id="form-currency"]/div/ul/li[1]/a').click()
@@ -40,15 +37,13 @@ def test_currency_set_up(browser):
             text_element_dollars.startswith('$')), 'Неправильно выставляются валюты'
 
 
-def test_amount_of_brands(browser):
-    time.sleep(1)  # Пауза для демонстрации
+def test_amount_of_brands(slow_down_tests, browser):
     amount = len(browser.find_elements(By.CLASS_NAME, "col-2.text-center"))
 
     assert amount == 11, "Неправильное количество спонсоров"
 
 
-def test_amount_of_photo(browser):
-    time.sleep(1)  # Пауза для демонстрации
+def test_amount_of_photo(slow_down_tests, browser):
     amount = len(browser.find_elements(By.CLASS_NAME, "fa-solid.fa-chevron-right"))
 
     assert amount == 2, "Неправильное количество изображений"

@@ -2,8 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 
 
-def test_camera(browser):
-    time.sleep(1)
+def test_camera(slow_down_tests, browser):
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[7]/a').click()
     browser.find_element(By.XPATH, '//*[@id="product-list"]/div[1]/div/div[2]/div/h4/a').click()
     header = browser.find_element(By.XPATH, '//*[@id="content"]/div/div[2]/h1').text
@@ -14,8 +13,7 @@ def test_camera(browser):
         "Карточка неверно отображается"
 
 
-def test_laptop(browser):
-    time.sleep(1)
+def test_laptop(slow_down_tests, browser):
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[2]/a').click()
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[2]/div/a').click()
     browser.find_element(By.XPATH, '//*[@id="product-list"]/div[1]/div/div[2]/div/h4/a').click()
@@ -25,16 +23,14 @@ def test_laptop(browser):
     assert header == 'HP LP3065' and price == '$122.00', "Карточка неверно отображается"
 
 
-def test_phones(browser):
-    time.sleep(1)
+def test_phones(slow_down_tests, browser):
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[6]/a').click()
     elements = browser.find_elements(By.CLASS_NAME, "col.mb-3")
 
     assert len(elements) == 3, "Количество телефонов не сооветствует"
 
 
-def test_tablets(browser):
-    time.sleep(1)
+def test_tablets(slow_down_tests, browser):
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[4]/a').click()
     browser.find_element(By.XPATH, '//*[@id="product-list"]/div/div/div[2]/div/h4/a').click()
     header = browser.find_element(By.XPATH, '//*[@id="content"]/div[1]/div[2]/h1').text
@@ -43,8 +39,7 @@ def test_tablets(browser):
     assert header == 'Samsung Galaxy Tab 10.1' and price == '$241.99', "Карточка неверно отображается"
 
 
-def test_monitors(browser):
-    time.sleep(1)
+def test_monitors(slow_down_tests, browser):
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[3]/a').click()
     browser.find_element(By.XPATH, '//*[@id="narbar-menu"]/ul/li[3]/div/div/ul/li[2]/a').click()
     browser.find_element(By.XPATH, '//*[@id="product-list"]/div[1]/div/div[2]/div/h4/a').click()

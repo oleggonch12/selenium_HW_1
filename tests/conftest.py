@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FFOptions
+import time
 
 
 def pytest_addoption(parser):
@@ -12,6 +13,10 @@ def pytest_addoption(parser):
     parser.addoption("--headless", action="store_true")
     parser.addoption("--base_url", default="http://192.168.1.35:8081")
 
+@pytest.fixture(autouse=True)
+def slow_down_tests():
+    yield
+    time.sleep(1)
 
 @pytest.fixture(scope='session')
 def browser(request):
@@ -33,6 +38,7 @@ def browser(request):
         if headless:
             options.add_argument("-headless")
         driver = webdriver.Firefox(options=options)
+        driver.get(base_url)
     elif browser_name == "ya":
         options = ChromeOptions()
         if headless:
@@ -40,7 +46,9 @@ def browser(request):
         service = ChromeService(
             executable_path="/home/oleg/Загрузки/yandexdriver-24.1.1.918-linux/yandexdriver"
         )
-        driver = webdriver.Chrome(service=service)
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                                  options=options)
+        driver.get(base_url)
 
     driver.maximize_window()
 
