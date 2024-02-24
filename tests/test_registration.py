@@ -1,6 +1,7 @@
 import random
 import string
 from selenium.webdriver.common.by import By
+import time
 
 
 def gen_user():
@@ -26,5 +27,6 @@ def test_registration(browser):
     password.send_keys(user['password'])
     browser.find_element(By.XPATH, '//*[@id="form-register"]/div/div/input').click()
     browser.find_element(By.XPATH, '//*[@id="form-register"]/div/button').click()
+    time.sleep(1)
 
     assert browser.find_element(By.XPATH, '//*[@id="content"]/h1').text == 'Your Account Has Been Created!'
