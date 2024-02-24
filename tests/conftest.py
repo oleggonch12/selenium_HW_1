@@ -1,4 +1,5 @@
 import pytest
+from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -9,10 +10,10 @@ from selenium.webdriver.firefox.options import Options as FFOptions
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
     parser.addoption("--headless", action="store_true")
-    parser.addoption("--base_url", default="http://192.168.1.35:8081)
+    parser.addoption("--base_url", default="http://192.168.1.35:8081")
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def browser(request):
     browser_name = request.config.getoption("--browser")
     headless = request.config.getoption("--headless")
@@ -24,8 +25,9 @@ def browser(request):
         options = ChromeOptions()
         if headless:
             options.add_argument("--headless=new")
-        service = ChromeService()
-        driver = webdriver.Chrome(service=service, options=options)
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                                  options=options)
+        driver.get(base_url)
     elif browser_name == "ff":
         options = FFOptions()
         if headless:
